@@ -1,0 +1,61 @@
+{
+	"name": "n8n-nodes-postel",
+	"version": "0.1.0",
+	"description": "Postel for n8n: find what's going viral in your niche and turn it into your own post, then schedule or publish it to X, LinkedIn, Bluesky and Mastodon.",
+	"license": "MIT",
+	"homepage": "https://github.com/robinfaraj/n8n-nodes-postel#readme",
+	"keywords": [
+		"n8n-community-node-package",
+		"postel",
+		"social media",
+		"linkedin",
+		"twitter",
+		"x",
+		"bluesky",
+		"scheduling",
+		"viral posts",
+		"content ideas"
+	],
+	"author": {
+		"name": "Postel",
+		"email": "contact@postel.app"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/robinfaraj/n8n-nodes-postel.git"
+	},
+	"scripts": {
+		"build": "n8n-node build",
+		"build:watch": "tsc --watch",
+		"dev": "n8n-node dev",
+		"lint": "n8n-node lint",
+		"lint:fix": "n8n-node lint --fix",
+		"test": "n8n-node build && node --test test/*.test.mjs",
+		"release": "n8n-node release",
+		"prepublishOnly": "n8n-node prerelease"
+	},
+	"files": [
+		"dist"
+	],
+	"n8n": {
+		"n8nNodesApiVersion": 1,
+		"strict": true,
+		"credentials": [
+			"dist/credentials/PostelApi.credentials.js"
+		],
+		"nodes": [
+			"dist/nodes/Postel/Postel.node.js",
+			"dist/nodes/PostelTrigger/PostelTrigger.node.js"
+		]
+	},
+	"devDependencies": {
+		"@n8n/node-cli": "^0.54.6",
+		"eslint": "9.39.4",
+		"prettier": "3.8.3",
+		"release-it": "20.2.0",
+		"typescript": "5.9.3"
+	},
+	"peerDependencies": {
+		"n8n-workflow": "*"
+	}
+}
