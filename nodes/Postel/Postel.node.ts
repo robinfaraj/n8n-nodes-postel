@@ -22,7 +22,7 @@ export class Postel implements INodeType {
 		version: 1,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
 		description:
-			'Write posts in your own voice and schedule or publish them to X, LinkedIn, Bluesky and Mastodon',
+			'Find viral posts in your niche, write your take in your voice, and schedule or publish posts to X, LinkedIn, Bluesky and Mastodon',
 		defaults: {
 			name: 'Postel',
 		},

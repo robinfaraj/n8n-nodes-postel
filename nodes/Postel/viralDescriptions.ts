@@ -15,7 +15,7 @@ export const viralPostDescription: INodeProperties[] = [
 			{
 				name: 'Find',
 				value: 'search',
-				description: 'Find posts and videos that took off, from individual creators',
+				description: 'Find viral posts and videos on X, YouTube, TikTok or Instagram by topic, from individual creators',
 				action: 'Find viral posts',
 			},
 			{
@@ -28,7 +28,7 @@ export const viralPostDescription: INodeProperties[] = [
 				name: 'Write My Take',
 				value: 'writeTake',
 				description:
-					'Postel writes your own post in your voice from a viral post or a format, and saves it as a draft',
+					'Write your own take on a viral X post or a proven format, in your voice, saved as a draft for LinkedIn or X',
 				action: 'Write my take on a viral post',
 			},
 		],

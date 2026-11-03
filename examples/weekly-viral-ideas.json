@@ -1,0 +1,117 @@
+{
+  "name": "Every Monday: top viral posts on my topic → drafts in my voice",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## A week of ideas from what's going viral\nEvery Monday, Postel finds the 3 most viewed X posts of the week on your topic that outran their author's usual reach, and writes your take on each for LinkedIn and X. The drafts wait in Postel.\n\nChange the topic in **Find viral posts**. Uses 1 AI credit per draft (6 a week here).",
+        "height": 240,
+        "width": 560,
+        "color": 7
+      },
+      "id": "b6b39cd5-bed4-570e-900f-24d0439736c0",
+      "name": "About this workflow",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -40,
+        -300
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [
+                1
+              ],
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "id": "a9697237-8b4d-530f-82fe-67fcffe01604",
+      "name": "Every Monday at 8",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "viralPost",
+        "operation": "search",
+        "query": "pricing",
+        "network": "x",
+        "limit": 3,
+        "viralFilters": {
+          "days": 7,
+          "minOutlierScore": 10
+        }
+      },
+      "id": "2692b3c7-4e33-51a2-b847-d2e8f91d8eba",
+      "name": "Find viral posts",
+      "type": "n8n-nodes-postel.postel",
+      "typeVersion": 1,
+      "position": [
+        260,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "viralPost",
+        "operation": "writeTake",
+        "takeFrom": "post",
+        "viralPostId": "={{ $json.id }}",
+        "answer": "",
+        "platforms": [
+          "linkedin",
+          "x"
+        ]
+      },
+      "id": "9ae0e08b-4527-5574-944c-a0d96f5196ab",
+      "name": "Write my take",
+      "type": "n8n-nodes-postel.postel",
+      "typeVersion": 1,
+      "position": [
+        520,
+        0
+      ]
+    }
+  ],
+  "connections": {
+    "Every Monday at 8": {
+      "main": [
+        [
+          {
+            "node": "Find viral posts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find viral posts": {
+      "main": [
+        [
+          {
+            "node": "Write my take",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}

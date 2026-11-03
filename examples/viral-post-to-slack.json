@@ -1,0 +1,157 @@
+{
+  "name": "Viral post in my niche → my take in my voice → Slack",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Viral post in my niche → my take → Slack\nWhen a real creator's post takes off in your niche, Postel writes your own take on it in your voice and saves it as a LinkedIn draft. Slack shows you the text, and you schedule it in Postel.\n\nWrite my take works from X posts (not videos yet), so **Only X posts** skips the videos.\n\nNeeds a Postel plan with For You (Pro) and a Postel API credential. Pick your Slack channel in the last node.",
+        "height": 240,
+        "width": 560,
+        "color": 7
+      },
+      "id": "35a70ae8-ed3c-5119-b1b1-df89e97f313c",
+      "name": "About this workflow",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -40,
+        -300
+      ]
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyHour",
+              "minute": 5
+            }
+          ]
+        },
+        "event": "viral.new"
+      },
+      "id": "92d449b8-b297-5651-a996-821dd54e88c8",
+      "name": "New viral post in my niche",
+      "type": "n8n-nodes-postel.postelTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "e1f32936-d27a-58c9-adc8-883768d44b35",
+              "leftValue": "={{ $json.viralPost.network }}",
+              "rightValue": "x",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "91bcba54-2230-5c67-a82c-054e08e6b8db",
+      "name": "Only X posts",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        240,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "viralPost",
+        "operation": "writeTake",
+        "takeFrom": "post",
+        "viralPostId": "={{ $json.viralPost.id }}",
+        "answer": "",
+        "platforms": [
+          "linkedin"
+        ]
+      },
+      "id": "9ae0e08b-4527-5574-944c-a0d96f5196ab",
+      "name": "Write my take",
+      "type": "n8n-nodes-postel.postel",
+      "typeVersion": 1,
+      "position": [
+        480,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "mode": "name",
+          "value": "#content"
+        },
+        "text": "=New take on a post that's going viral in your niche:\n\n{{ $json.post.text }}\n\nIt's a draft in Postel. Edit it or schedule it there.",
+        "otherOptions": {}
+      },
+      "id": "da65679c-42fd-52b5-a69d-09c7e9488be1",
+      "name": "Send draft to Slack",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        720,
+        0
+      ]
+    }
+  ],
+  "connections": {
+    "New viral post in my niche": {
+      "main": [
+        [
+          {
+            "node": "Only X posts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Only X posts": {
+      "main": [
+        [
+          {
+            "node": "Write my take",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write my take": {
+      "main": [
+        [
+          {
+            "node": "Send draft to Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}

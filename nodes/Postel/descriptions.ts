@@ -21,7 +21,7 @@ const postIdField = (operation: string[]): INodeProperties => ({
 	required: true,
 	default: '',
 	displayOptions: showPost(operation),
-	description: 'The ID of a Postel post, for example from a Create or Generate step',
+	description: 'The ID of a Postel post, for example from a Create, Generate or Write My Take step',
 });
 
 export const postDescription: INodeProperties[] = [
@@ -42,7 +42,7 @@ export const postDescription: INodeProperties[] = [
 				name: 'Generate in My Voice',
 				value: 'generate',
 				description:
-					'Postel writes a post from your prompt in your own voice and saves it as a draft',
+					'Write a post in your own voice from a topic, notes or a link, saved as a draft',
 				action: 'Generate a post in my voice',
 			},
 			{

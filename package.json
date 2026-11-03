@@ -1,20 +1,33 @@
 {
 	"name": "n8n-nodes-postel",
 	"version": "0.1.0",
-	"description": "Postel for n8n: find what's going viral in your niche and turn it into your own post, then schedule or publish it to X, LinkedIn, Bluesky and Mastodon.",
+	"description": "n8n community node for Postel: find viral posts in your niche on X, YouTube, TikTok and Instagram, write your take in your voice with AI, and auto-post to LinkedIn, X, Bluesky and Mastodon.",
 	"license": "MIT",
-	"homepage": "https://github.com/robinfaraj/n8n-nodes-postel#readme",
+	"homepage": "https://www.postel.app",
+	"bugs": {
+		"url": "https://github.com/robinfaraj/n8n-nodes-postel/issues"
+	},
 	"keywords": [
 		"n8n-community-node-package",
+		"n8n",
+		"n8n-node",
 		"postel",
-		"social media",
+		"social media automation",
+		"automate social media posts",
+		"automate linkedin posts",
+		"auto post to linkedin",
+		"linkedin auto post",
+		"twitter automation",
 		"linkedin",
-		"twitter",
 		"x",
+		"twitter",
 		"bluesky",
-		"scheduling",
+		"mastodon",
 		"viral posts",
-		"content ideas"
+		"viral content",
+		"content ideas",
+		"ai social media posts",
+		"social media scheduler"
 	],
 	"author": {
 		"name": "Postel",

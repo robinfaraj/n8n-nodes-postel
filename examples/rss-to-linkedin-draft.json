@@ -1,0 +1,79 @@
+{
+  "name": "New blog post (RSS) → LinkedIn post in my voice",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## RSS → LinkedIn draft in your voice\nEvery new item in your blog's RSS feed becomes a LinkedIn post written the way you write, saved as a draft in Postel. Read it, change a word, schedule it.\n\nPut your feed URL in **New blog post**. Uses 1 AI credit per post. Works for X too: change the channel.",
+        "height": 240,
+        "width": 560,
+        "color": 7
+      },
+      "id": "c17803eb-f327-5ea5-85f5-702244582d79",
+      "name": "About this workflow",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -40,
+        -300
+      ]
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyHour",
+              "minute": 5
+            }
+          ]
+        },
+        "feedUrl": "https://example.com/blog/rss.xml"
+      },
+      "id": "e681ce1c-39f9-524c-ab98-741fb955998b",
+      "name": "New blog post",
+      "type": "n8n-nodes-base.rssFeedReadTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "post",
+        "operation": "generate",
+        "platform": "linkedin",
+        "prompt": "=New post on my blog: {{ $json.title }}. {{ $json.contentSnippet }} Link: {{ $json.link }}",
+        "generateOptions": {}
+      },
+      "id": "988077d2-2e49-5aed-b7d8-27720ceb75cf",
+      "name": "Write post in my voice",
+      "type": "n8n-nodes-postel.postel",
+      "typeVersion": 1,
+      "position": [
+        260,
+        0
+      ]
+    }
+  ],
+  "connections": {
+    "New blog post": {
+      "main": [
+        [
+          {
+            "node": "Write post in my voice",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}

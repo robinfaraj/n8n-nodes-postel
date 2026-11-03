@@ -1,0 +1,121 @@
+{
+  "name": "Content calendar (Google Sheets) → scheduled posts",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Content calendar → scheduled posts\nPlan in a sheet with the columns **date** (2026-11-04), **time** (09:30), **channel** (linkedin, x, bluesky or mastodon) and **text**. Every morning, today's rows are scheduled in Postel at their time, in the workflow's timezone.\n\nScheduling needs a paid Postel plan.",
+        "height": 240,
+        "width": 560,
+        "color": 7
+      },
+      "id": "de431faf-7522-5250-baed-397c83d54095",
+      "name": "About this workflow",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -40,
+        -300
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 7
+            }
+          ]
+        }
+      },
+      "id": "8674fbf2-dbb6-52bb-b3e6-123b02307c99",
+      "name": "Every morning at 7",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "url",
+          "value": "https://docs.google.com/spreadsheets/d/your-sheet-id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Posts"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "date",
+              "lookupValue": "={{ $today.toFormat('yyyy-MM-dd') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "41adee78-392a-56c4-88e0-687b8fe39525",
+      "name": "Today's rows",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        260,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "post",
+        "operation": "create",
+        "platform": "={{ $json.channel }}",
+        "text": "={{ $json.text }}",
+        "when": "schedule",
+        "scheduledAt": "={{ $json.date }}T{{ $json.time }}",
+        "options": {}
+      },
+      "id": "694f4eec-b9e7-5bf8-b005-7046869866ca",
+      "name": "Schedule post",
+      "type": "n8n-nodes-postel.postel",
+      "typeVersion": 1,
+      "position": [
+        520,
+        0
+      ]
+    }
+  ],
+  "connections": {
+    "Every morning at 7": {
+      "main": [
+        [
+          {
+            "node": "Today's rows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Today's rows": {
+      "main": [
+        [
+          {
+            "node": "Schedule post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}

@@ -29,7 +29,7 @@ export class PostelTrigger implements INodeType {
 		version: 1,
 		subtitle: '={{$parameter["event"]}}',
 		description:
-			'Starts the workflow when a post goes viral in your niche, a Postel post is published or fails, or a new draft is ready',
+			'Starts the workflow when a post goes viral in your niche, a Postel post is published or fails, or a new draft is ready in Review',
 		defaults: {
 			name: 'Postel Trigger',
 		},
@@ -54,7 +54,7 @@ export class PostelTrigger implements INodeType {
 					{
 						name: 'Post Published',
 						value: 'post.published',
-						description: 'A post went out on its network',
+						description: 'A post went out on X, LinkedIn, Bluesky or Mastodon. Includes its link.',
 					},
 					{
 						name: 'Post Failed',
@@ -70,7 +70,7 @@ export class PostelTrigger implements INodeType {
 						name: 'New Viral Post in My Niche',
 						value: 'viral.new',
 						description:
-							'A post or video took off in your niche, as Postel scored it for you (Pro plan). Pair it with Write My Take.',
+							"A real creator's post or video took off in your niche on X, YouTube, TikTok or Instagram, picked for you by Postel (Pro plan). Pair it with Write My Take.",
 					},
 				],
 			},

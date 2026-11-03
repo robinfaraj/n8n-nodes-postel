@@ -1,0 +1,79 @@
+{
+  "name": "Post failed → email me the reason",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Post failed → email\nIf a post can't go out (an expired connection, a network error), you get an email with the post and the reason. Postel moves the post back to your drafts.\n\nSet up SMTP credentials for **Email me**, or swap it for Slack or Gmail.",
+        "height": 240,
+        "width": 560,
+        "color": 7
+      },
+      "id": "da151bd8-733f-5e8a-84aa-4974a5f80bfd",
+      "name": "About this workflow",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -40,
+        -300
+      ]
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "event": "post.failed"
+      },
+      "id": "aa181b8b-d010-53e9-8f73-27f22253a7f9",
+      "name": "Post failed",
+      "type": "n8n-nodes-postel.postelTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "alerts@example.com",
+        "toEmail": "you@example.com",
+        "subject": "=A {{ $json.post.platform }} post didn't go out",
+        "emailFormat": "text",
+        "text": "=Postel couldn't publish this post:\n\n{{ $json.post.text }}\n\nWhy: {{ $json.post.failure.message }}\n\nIt's back in your drafts in Postel.",
+        "options": {}
+      },
+      "id": "f9e2f2e7-2095-5fde-9341-ed8ee1b3c49a",
+      "name": "Email me",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        260,
+        0
+      ]
+    }
+  ],
+  "connections": {
+    "Post failed": {
+      "main": [
+        [
+          {
+            "node": "Email me",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}
