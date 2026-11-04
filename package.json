@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-postel",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "n8n community node for Postel: find viral posts in your niche on X, YouTube, TikTok and Instagram, write your take in your voice with AI, and auto-post to LinkedIn, X, Bluesky and Mastodon.",
 	"license": "MIT",
 	"homepage": "https://www.postel.app",
@@ -31,7 +31,7 @@
 	],
 	"author": {
 		"name": "Postel",
-		"email": "contact@postel.app"
+		"email": "robin.faraj@postel.app"
 	},
 	"repository": {
 		"type": "git",
